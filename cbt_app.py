@@ -17,7 +17,7 @@ def get_questions(filtered_section):
         return QUESTIONS
     return [q for q in QUESTIONS if q['section'] == filtered_section]
 def format_question(q):
-    prompt = f\"Q{q['qnum']}. ({q['section']}) {q['question']}\"
+    prompt = f"Q{q['qnum']}. ({q['section']}) {q['question']}"
     return prompt
 section_choice, timer_on, show_answers_after = sidebar_controls()
 questions = get_questions(section_choice)
@@ -32,7 +32,7 @@ if timer_on:
     else:
         mins = remaining // 60
         secs = remaining % 60
-        st.sidebar.markdown(f\"**Time remaining:** {mins:02d}:{secs:02d}\")
+        st.sidebar.markdown(f"**Time remaining:** {mins:02d}:{secs:02d}")
 if 'index' not in st.session_state:
     st.session_state.index = 0
 if 'answers' not in st.session_state:
