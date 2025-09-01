@@ -181,14 +181,19 @@
     "answer": 3,
     "explanation": "Distance=500 m; speed 36 km/h = 10 m/s -> time=500/10=50 s."
   },
-{
-  "qnum": 15,
-  "section": "Quantitative Ability",
-  "question": "A trader bought an article for ₹600 and sold it for ₹750. What is his profit percentage?",
-  "options": ["20%", "22.5%", "25%", "30%"],
-  "answer": 2,
-  "explanation": "Profit = 750 - 600 = 150. Profit% = (150/600) * 100 = 25%."
-},
+  {
+    "section": "Quantitative",
+    "qnum": 15,
+    "question": "From 5 men and 4 women, form a 3-person committee with at least 1 woman. Number of ways:",
+    "options": [
+      "60",
+      "55",
+      "45",
+      "52"
+    ],
+    "answer": null,
+    "explanation": "Correct count C(9,3)-C(5,3)=84-10=74. (Original options didn't include 74.)"
+  },
   {
     "section": "Quantitative",
     "qnum": 16,
@@ -723,13 +728,18 @@
     "explanation": "Circuit breaker is a design pattern to stop cascading failures."
   },
   {
-  "qnum": 57,
-  "section": "Verbal Ability",
-  "question": "Identify the correct spelling:",
-  "options": ["Accomodate", "Acommodate", "Accommodate", "Acomodete"],
-  "answer": 2,
-  "explanation": "The correct spelling is 'Accommodate' (with double 'c' and double 'm')."
-  }
+    "section": "Verbal",
+    "qnum": 57,
+    "question": "Arrange to make coherent sentence: (i) the team (ii) delivered (iii) under pressure (iv) the project",
+    "options": [
+      "iv-i-iii-ii",
+      "i-ii-iii-iv",
+      "iv-ii-i-iii",
+      "iii-iv-i-ii"
+    ],
+    "answer": null,
+    "explanation": "Correct order is i-ii-iv-iii -> 'The team delivered the project under pressure.' (options didn't include it exactly.)"
+  },
   {
     "section": "Verbal",
     "qnum": 58,
