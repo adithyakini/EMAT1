@@ -61,7 +61,7 @@ if st.checkbox("Show question palette"):
         btn = cols[i%10].button(str(q['qnum']))
         if btn:
             st.session_state.index = i
-if st.button("Submit Test"):
+if st.button("Complete and Submit Test"):
     st.session_state.submitted = True
 if st.session_state.submitted:
     total = 0
