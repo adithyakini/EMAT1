@@ -722,14 +722,14 @@
     "answer": 1,
     "explanation": "Circuit breaker is a design pattern to stop cascading failures."
   },
-{
+  {
   "qnum": 57,
   "section": "Verbal Ability",
   "question": "Identify the correct spelling:",
   "options": ["Accomodate", "Acommodate", "Accommodate", "Acomodete"],
   "answer": 2,
   "explanation": "The correct spelling is 'Accommodate' (with double 'c' and double 'm')."
-}
+  }
   {
     "section": "Verbal",
     "qnum": 58,
