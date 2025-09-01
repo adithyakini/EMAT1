@@ -1,7 +1,7 @@
 _import streamlit as st
 import json, os, time
 HERE = os.path.dirname(__file__)
-with open(os.path.join(HERE, "eat_questions2.json"), "r", encoding="utf-8") as f:
+with open(os.path.join(HERE, "questions.json"), "r", encoding="utf-8") as f:
     QUESTIONS = json.load(f)
 TOTAL_TIME_MIN = 60
 st.set_page_config(page_title="IIM Indore Mock CBT", layout="wide")
