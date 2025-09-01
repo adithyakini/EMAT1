@@ -1,4 +1,4 @@
-_import streamlit as st
+import streamlit as st
 import json, os, time
 HERE = os.path.dirname(__file__)
 with open(os.path.join(HERE, "questions.json"), "r", encoding="utf-8") as f:
