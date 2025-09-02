@@ -79,7 +79,7 @@ with col2:
         st.session_state.current_q += 1
 
 # Submit
-if st.button("✅ Submit Test"):
+if st.button("✅ END and Submit Test"):
     st.write("### 📊 Your Responses")
     st.json(st.session_state.responses)
 
