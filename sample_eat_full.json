@@ -1,0 +1,413 @@
+{
+  "meta": {
+    "title": "Sample EAT",
+    "num_questions": 20,
+    "marks_per_question": 4,
+    "negative_marking_fraction": 0.25,
+    "note": "Actual EAT may differ in composition and pattern."
+  },
+  "stimuli": [
+    {
+      "id": "passage_1_4",
+      "type": "reading_passage",
+      "title": "Capitalism & the Illusion of Happiness",
+      "text": "Capitalism is a great slave, but a pathetic master. This truth unfortunately gets lost in our chase for the elusive dream. It’s the dream of being independent masters of our lives or making big bucks and of being happy—even if that happiness is being bought by money which all of them chase out there. No doubt, the West, on its part, has been fairly successful in creating material comforts aplenty. It has improved the living standard of its average citizen. However, it has been achieved as a result of more than 200 years of unbridled growth and exploitation. And that is what has made the rest of the world mindlessly chase Westernism—not necessarily happiness or an ideal form of society. All because the shop window looks very impressive and it has been marketed very well.\n\nBut a deep look inside the shop tells a different tale. A different world lies behind; a world that is not quite visible to the starry-eyed millions—for whom the Western way of life seems to be the ultimate dream.\n\nThus, we have Indians dreaming to become or to get married to an NRI and Indian middle-class fathers dreaming of their sons reaching the Bay Area and landing tech jobs, unmindful of the second-class life they end up leading in the West. What goes unseen and almost unheard is that the West also happens to be the land that is right amongst the top in terms of the number of divorces per thousand, the number of single parent families per thousand, the number of old people in old age homes, the number of suicides, homicides, and of course, the number of college/school shootouts.\n\nAnd why not! After all, such societies are constantly driven towards higher profits and materialism. Expectedly, this materialism comes at a cost that the world is paying today. This is the reason why we have millions dying of curable diseases in Africa and other underdeveloped countries, while the rich grow richer. Their growth will be reduced if they were to start thinking of the poor—so what do they do to justify their greed for more? They most shrewdly propagate and market a ridiculously primitive law of the jungle for our 21st-century civilian, the “Law of Survival of the Fittest”! \n\nThe interesting thing about material things is that they only give an illusion of happiness; however, such happiness is always momentary in nature. Ergo, at this juncture, you feel you are buying your new car or flat screen TV, and just a few days later, these are the very possessions that cease to make you happy. While you chase the bigger car and spend that extra bit of wealth, you intercept someone’s share of the daily bread and also sacrifice those who have the maximum power to make you happy—family, emotions and love. Prolonged abstinence in feeling emotions finally destroys bliss; and you don’t even realize when you have become a dry-eyed cripple… and then you land up in a sermon workshop to find out the real meaning of life—or whatever these workshops are capable of explaining. The truth is that such workshops are also driven by merchants who cash in on the dejected state of the people, a state created by their own fictional dreams. But by then it’s really too late.\n\nBy then, you have made profits out of arms, and engineered wars to keep that industry alive. You’ve sold guns across counters at supermarkets and made more profits. You’ve lobbied that guns should be made accessible to the common man, and all for the sake of profits. This makes you realize one day that they are your own children who are in the line of fire against the school-goer who opens fire at his schoolmates.\n\nThis is the society that finally creates an emotionless monster, who gets satisfaction in killing innocent adults and children alike for no cause, no reason and for none, for himself. It is the utter destruction of spiritualism and the total focus on endless self-gratification. Where so many single-parent families and divorces exist, it is impossible to bring up children or influence the killers any better.\n"
+    },
+    {
+      "id": "charts_10_12",
+      "type": "chart_data",
+      "title": "Car Manufacturer Shares (2008 vs 2009)",
+      "description": "Percentage share by companies A–E for years 2008 and 2009 (pie-chart source).",
+      "series": {
+        "2008": {
+          "A": 30,
+          "B": 25,
+          "C": 20,
+          "D": 15,
+          "E": 10
+        },
+        "2009": {
+          "A": 35,
+          "B": 20,
+          "C": 15,
+          "D": 10,
+          "E": 20
+        }
+      }
+    },
+    {
+      "id": "logic_13_15",
+      "type": "logic_setup",
+      "title": "Classroom Assignments",
+      "rooms": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "teachers": [
+        "F",
+        "G",
+        "H",
+        "I",
+        "J"
+      ],
+      "assistants": [
+        "K",
+        "L",
+        "M",
+        "N",
+        "O"
+      ],
+      "constraints": [
+        "One teacher and one assistant per assigned room; one room remains unassigned.",
+        "F is assigned to the same room as K.",
+        "G is not assigned to the same room as O.",
+        "I is assigned to either Room 2 or Room 3.",
+        "J is assigned to Room 5.",
+        "M is assigned to a room next to F’s room.",
+        "The unassigned room is not an end room (i.e., not Room 1 or Room 6)."
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "qnum": 1,
+      "section": "Reading Comprehension",
+      "type": "mcq_single",
+      "stimulus_id": "passage_1_4",
+      "prompt": "Who does the author hold responsible for the shooting spree in schools and colleges?\nA) Lack of love and emotion in the society in general.\nB) Increased focus on self-gratification even when it comes at the cost of innocent lives.\nC) Deteriorating social structure leading to break up of families resulting in lack of moral development in children.",
+      "options": [
+        "Only A",
+        "Only C",
+        "Only B and C",
+        "All of these"
+      ],
+      "correct_letter": "D",
+      "correct_index_1based": 4,
+      "answer_text": "All of these"
+    },
+    {
+      "qnum": 2,
+      "section": "Reading Comprehension",
+      "type": "mcq_single",
+      "stimulus_id": "passage_1_4",
+      "prompt": "According to the passage, which of the following is a reason for poverty and hunger in underdeveloped countries?\nA) Mindlessly chasing the Western way of living.\nB) They have fallen prey to the idea of happiness through material comforts rather than love and emotional bond.\nC) They do not have marketing techniques as good as the western countries.",
+      "options": [
+        "Only B",
+        "Only C",
+        "Only A",
+        "Not mentioned in the passage"
+      ],
+      "correct_letter": "D",
+      "correct_index_1based": 4,
+      "answer_text": "Not mentioned in the passage"
+    },
+    {
+      "qnum": 3,
+      "section": "Reading Comprehension",
+      "type": "mcq_single",
+      "stimulus_id": "passage_1_4",
+      "prompt": "What does the author mean by ‘intercepting someone’s share of daily bread’?",
+      "options": [
+        "Hindering the process of marketing in underdeveloped countries by the developed countries",
+        "Denying material comfort to the Western world",
+        "Affecting the social life of those working towards material comforts only",
+        "Excess of wealth in western world while people in poorer nations struggle for survival"
+      ],
+      "correct_letter": "D",
+      "correct_index_1based": 4,
+      "answer_text": "Excess of wealth in western world while people in poorer nations struggle for survival"
+    },
+    {
+      "qnum": 4,
+      "section": "Reading Comprehension",
+      "type": "mcq_single",
+      "stimulus_id": "passage_1_4",
+      "prompt": "The author’s main objective in writing the passage is:",
+      "options": [
+        "To explain that consumerist societies have their own drawbacks which are over-blinded by its material glare",
+        "To explain how too many material comforts have improved the living standard of common man in the West",
+        "That young children should not be given access to guns and other ammunitions",
+        "All NRIs are leading unmindful, second-class lives abroad"
+      ],
+      "correct_letter": "A",
+      "correct_index_1based": 1,
+      "answer_text": "To explain that consumerist societies have their own drawbacks which are over-blinded by its material glare"
+    },
+    {
+      "qnum": 5,
+      "section": "Quantitative Aptitude",
+      "type": "mcq_single",
+      "stimulus_id": null,
+      "prompt": "The price of a Washing Machine today is Rs. 15,000. What was its price 2 years back if the yearly rate of inflation is 20%?",
+      "options": [
+        "Less than Rs. 10,000",
+        "More than Rs.10,000 but less than Rs.11,000",
+        "More than Rs.11,000 but less than Rs.12,000",
+        "More than Rs. 12,000"
+      ],
+      "correct_letter": "B",
+      "correct_index_1based": 2,
+      "answer_text": "More than Rs.10,000 but less than Rs.11,000"
+    },
+    {
+      "qnum": 6,
+      "section": "Quantitative Aptitude",
+      "type": "mcq_single",
+      "stimulus_id": null,
+      "prompt": "Triangle ABC has sides 5, 12 & 13 units. Rectangle PQRS has the same area as triangle ABC and width 10 units. What is the difference between the perimeters of rectangle PQRS and triangle ABC?",
+      "options": [
+        "Less than 10",
+        "More than 10 & less than 20",
+        "20",
+        "25"
+      ],
+      "correct_letter": "B",
+      "correct_index_1based": 2,
+      "answer_text": "More than 10 & less than 20"
+    },
+    {
+      "qnum": 7,
+      "section": "Quantitative Aptitude",
+      "type": "mcq_single",
+      "stimulus_id": null,
+      "prompt": "ABC Ltd. employs Engineers, Managers & Accountants. 83% Engineers are females; 76% managers are females; 85% accountants are females. Among Engineers & Managers there are 79% females, and among Managers & Accountants there are 81% females. What is the percentage of male employees in ABC Ltd?",
+      "options": [
+        "12.5%",
+        "15.5%",
+        "18.5%",
+        "None of these"
+      ],
+      "correct_letter": "C",
+      "correct_index_1based": 3,
+      "answer_text": "18.5%"
+    },
+    {
+      "qnum": 8,
+      "section": "Quantitative Aptitude",
+      "type": "mcq_single",
+      "stimulus_id": null,
+      "prompt": "Two persons A and B start from opposite ends of a corridor. They first meet 45 m from one end. They continue to the other end, turn back, and meet again 25 m from the other end. Find the length of the corridor.",
+      "options": [
+        "70 m",
+        "90 m",
+        "110 m",
+        "140 m"
+      ],
+      "correct_letter": "C",
+      "correct_index_1based": 3,
+      "answer_text": "110 m"
+    },
+    {
+      "qnum": 9,
+      "section": "Quantitative Aptitude",
+      "type": "mcq_single",
+      "stimulus_id": null,
+      "prompt": "Riyan has 60 candies to divide among himself and his 12 friends (13 people in total). Each person must get at least 1 candy. If Arihant wants to have more candies than any of his friends, what is the difference between the largest and least number of candies he could have?",
+      "options": [
+        "35",
+        "38",
+        "42",
+        "Cannot be determined"
+      ],
+      "correct_letter": "C",
+      "correct_index_1based": 3,
+      "answer_text": "42"
+    },
+    {
+      "qnum": 10,
+      "section": "Data Interpretation",
+      "type": "mcq_single",
+      "stimulus_id": "charts_10_12",
+      "prompt": "Sales volume of company B increased by 20% in 2009 over 2008. What is the percentage change in the total sales volume of 2009 over the total sales volume of 2008?",
+      "options": [
+        "25%",
+        "50%",
+        "75%",
+        "cannot be determined"
+      ],
+      "correct_letter": "B",
+      "correct_index_1based": 2,
+      "answer_text": "50%"
+    },
+    {
+      "qnum": 11,
+      "section": "Data Interpretation",
+      "type": "mcq_single",
+      "stimulus_id": "charts_10_12",
+      "prompt": "For how many of the companies mentioned in the pie charts has the sales volume certainly increased in 2009 over 2008?",
+      "options": [
+        "0",
+        "1",
+        "2",
+        "Cannot be determined"
+      ],
+      "correct_letter": "D",
+      "correct_index_1based": 4,
+      "answer_text": "Cannot be determined"
+    },
+    {
+      "qnum": 12,
+      "section": "Data Interpretation",
+      "type": "mcq_single",
+      "stimulus_id": "charts_10_12",
+      "prompt": "From 2008 to 2009, if the sales volume of none of the manufacturing companies decreased, then what is the minimum percentage increase in the total sales volume of cars in 2009 over 2008?",
+      "options": [
+        "25%",
+        "50%",
+        "75%",
+        "cannot be determined"
+      ],
+      "correct_letter": "B",
+      "correct_index_1based": 2,
+      "answer_text": "50%"
+    },
+    {
+      "qnum": 13,
+      "section": "Logical Reasoning",
+      "type": "mcq_single",
+      "stimulus_id": "logic_13_15",
+      "prompt": "If G is assigned to Room 3, which of the following must be true?",
+      "options": [
+        "F is assigned to Room 1.",
+        "I is assigned to Room 2.",
+        "L is assigned to Room 3.",
+        "None of these"
+      ],
+      "correct_letter": "B",
+      "correct_index_1based": 2,
+      "answer_text": "I is assigned to Room 2."
+    },
+    {
+      "qnum": 14,
+      "section": "Logical Reasoning",
+      "type": "mcq_single",
+      "stimulus_id": "logic_13_15",
+      "prompt": "If Room 2 is the unassigned room, which of the following could be true?",
+      "options": [
+        "G is assigned to an end room.",
+        "M is assigned to an end room.",
+        "M is assigned to the same room as H.",
+        "None of these"
+      ],
+      "correct_letter": "A",
+      "correct_index_1based": 1,
+      "answer_text": "G is assigned to an end room."
+    },
+    {
+      "qnum": 15,
+      "section": "Logical Reasoning",
+      "type": "mcq_single",
+      "stimulus_id": "logic_13_15",
+      "prompt": "If G is assigned to a room next to H’s room, which of the following must be true?",
+      "options": [
+        "G is assigned to Room 1.",
+        "L is assigned to Room 2.",
+        "Room 3 is the unassigned room.",
+        "None of these"
+      ],
+      "correct_letter": "D",
+      "correct_index_1based": 4,
+      "answer_text": "None of these"
+    },
+    {
+      "qnum": 16,
+      "section": "Verbal Ability",
+      "type": "mcq_single",
+      "stimulus_id": null,
+      "prompt": "Cryogenic energy storage has the advantage of being suitable in any_____, regardless of geography or geology, factors that may_____both underground gas storage and pumped hydroelectric storage.",
+      "options": [
+        "location…limit",
+        "climate…deter",
+        "site…forebode",
+        "proportion…typify"
+      ],
+      "correct_letter": "A",
+      "correct_index_1based": 1,
+      "answer_text": "location…limit"
+    },
+    {
+      "qnum": 17,
+      "section": "Verbal Ability",
+      "type": "mcq_single",
+      "stimulus_id": null,
+      "prompt": "The newborn human infant is not a passive figure, nor an active one, but what might be called an actively _____ one, eagerly attentive as it is to sights and sounds.",
+      "options": [
+        "adaptive",
+        "selective",
+        "inquisitive",
+        "receptive"
+      ],
+      "correct_letter": "D",
+      "correct_index_1based": 4,
+      "answer_text": "receptive"
+    },
+    {
+      "qnum": 18,
+      "section": "Verbal Ability",
+      "type": "mcq_single",
+      "stimulus_id": null,
+      "prompt": "Opponents of the expansion of the market economy, although in_____, continued to constitute ____ political force throughout the century.",
+      "options": [
+        "error…an inconsequential",
+        "retreat…a powerful",
+        "disarray…a disciplined",
+        "jeopardy…an ineffective"
+      ],
+      "correct_letter": "B",
+      "correct_index_1based": 2,
+      "answer_text": "retreat…a powerful"
+    },
+    {
+      "qnum": 19,
+      "section": "Verbal Ability",
+      "type": "mcq_single",
+      "stimulus_id": null,
+      "prompt": "Arrange P, Q, R, S to form a coherent paragraph.\nS1: Forecasting the weather has always been a difficult business.\nP: During a period of drought, streams and rivers dried up, the cattle died from thirst and were ruined.\nQ: Many different things affect the weather and we have to study them carefully to make accurate forecast.\nR: Ancient Egyptians had no need of weather in the Nile Valley hardly ever changes.\nS: In early times, when there were no instruments, such as thermometer or the barometer, man looked for tell-tale signs in the sky.\nS6: He made his forecasts by watching flights of the birds or the way smoke rose from fire.",
+      "options": [
+        "PRQS",
+        "QPRS",
+        "QRPS",
+        "SPQR"
+      ],
+      "correct_letter": "B",
+      "correct_index_1based": 2,
+      "answer_text": "QPRS",
+      "format": {
+        "S1": "Forecasting the weather has always been a difficult business.",
+        "P": "During a period of drought, streams and rivers dried up, the cattle died from thirst and were ruined.",
+        "Q": "Many different things affect the weather and we have to study them carefully to make accurate forecast.",
+        "R": "Ancient Egyptians had no need of weather in the Nile Valley hardly ever changes.",
+        "S": "In early times, when there were no instruments, such as thermometer or the barometer, man looked for tell-tale signs in the sky.",
+        "S6": "He made his forecasts by watching flights of the birds or the way smoke rose from fire."
+      }
+    },
+    {
+      "qnum": 20,
+      "section": "Verbal Ability",
+      "type": "mcq_single",
+      "stimulus_id": null,
+      "prompt": "Arrange P, Q, R, S to form a coherent paragraph.\nS1: For decades, American society has been called a melting pot.\nP: Differences remained—in appearance, mannerisms, customs, speech, religion and more.\nQ: The term has long been a cliché and half-truth.\nR: But homogenization was never achieved.\nS: Yes, immigrants from diverse cultures and traditions did cast off vestiges of their native lands and become almost imperceptibly woven into the American fabric.\nS6: In recent years, such differences—accentuated by the arrival of immigrants from Asia and other parts of the world in the United States—have become something to celebrate and to nurture.",
+      "options": [
+        "QRSP",
+        "SQRP",
+        "SQPR",
+        "QSRP"
+      ],
+      "correct_letter": "B",
+      "correct_index_1based": 2,
+      "answer_text": "SQRP",
+      "format": {
+        "S1": "For decades, American society has been called a melting pot.",
+        "P": "Differences remained—in appearance, mannerisms, customs, speech, religion and more.",
+        "Q": "The term has long been a cliché and half-truth.",
+        "R": "But homogenization was never achieved.",
+        "S": "Yes, immigrants from diverse cultures and traditions did cast off vestiges of their native lands and become almost imperceptibly woven into the American fabric.",
+        "S6": "In recent years, such differences—accentuated by the arrival of immigrants from Asia and other parts of the world in the United States—have become something to celebrate and to nurture."
+      }
+    }
+  ]
+}
