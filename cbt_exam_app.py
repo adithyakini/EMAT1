@@ -17,7 +17,7 @@ def get_questions(filtered_section):
         return QUESTIONS
     return [q for q in QUESTIONS if q['section'] == filtered_section]
 def format_question(q):
-    prompt = f\"Q{q['qnum']}. ({q['section']}) {q['question']}\"
+    prompt = f"Q{q['qnum']}. ({q['section']}) {q['question']}"
     return prompt
 section_choice, timer_on, show_answers_after = sidebar_controls()
 questions = get_questions(section_choice)
@@ -32,7 +32,7 @@ if timer_on:
     else:
         mins = remaining // 60
         secs = remaining % 60
-        st.sidebar.markdown(f\"**Time remaining:** {mins:02d}:{secs:02d}\")
+        st.sidebar.markdown(f"**Time remaining:** {mins:02d}:{secs:02d}")
 if 'index' not in st.session_state:
     st.session_state.index = 0
 if 'answers' not in st.session_state:
@@ -47,9 +47,9 @@ with cols[2]:
     if st.button("Next"):
         st.session_state.index = min(len(questions)-1, st.session_state.index + 1)
 current_q = questions[st.session_state.index]
-st.markdown(f\"### {format_question(current_q)}\")
+st.markdown(f"### {format_question(current_q)}")
 options = current_q['options']
-key = f\"q_{current_q['qnum']}\"
+key = f"q_{current_q['qnum']}"
 default_index = 0 if st.session_state['answers'].get(str(current_q['qnum'])) is None else st.session_state['answers'][str(current_q['qnum'])]
 choice = st.radio("Select an option", options, index=default_index, key=key)
 selected_index = options.index(choice)
@@ -77,17 +77,17 @@ if st.session_state.submitted:
             else:
                 wrong += 1
         explanations.append((q, ans, q['answer']))
-    st.success(f\"Score: {total} / {len(QUESTIONS)} | Attempted: {attempted} | Wrong: {wrong}\")
+    st.success(f"Score: {total} / {len(QUESTIONS)} | Attempted: {attempted} | Wrong: {wrong}")
     if show_answers_after:
-        st.markdown(\"---\")
-        st.markdown(\"## Answer key & Explanations\")
+        st.markdown("---")
+        st.markdown("## Answer key & Explanations")
         for q, user_ans, correct_ans in explanations:
-            st.markdown(f\"**Q{q['qnum']}. {q['question']}**\")
+            st.markdown(f"**Q{q['qnum']}. {q['question']}**")
             for idx, opt in enumerate(q['options']):
                 prefix = '✅' if correct_ans is not None and idx == correct_ans else ('➡️' if user_ans==idx and user_ans!=correct_ans else '  ')
-                st.write(f\"{prefix} {chr(65+idx)}. {opt}\")
-            st.write(f\"**Explanation:** {q.get('explanation','-')}\")
-            st.markdown(\"---\")
+                st.write(f"{prefix} {chr(65+idx)}. {opt}")
+            st.write(f"**Explanation:** {q.get('explanation','-')}")
+            st.markdown("---")
 if st.button('Download Responses (JSON)'):
     import io, json
     buf = io.StringIO()
