@@ -2,111 +2,110 @@ import streamlit as st
 import json
 import os
 import time
+import random
 
-# ---------- Utility Functions ----------
-def load_questions(file_path):
-    with open(file_path, 'r', encoding='utf-8') as f:
+# --------------------
+# Load available question sets
+# --------------------
+def list_question_files():
+    return [f for f in os.listdir() if f.endswith(".json")]
+
+# --------------------
+# Load questions
+# --------------------
+def load_questions(filename):
+    with open(filename, "r", encoding="utf-8") as f:
         return json.load(f)
 
-def save_progress(progress_file, state):
-    with open(progress_file, 'w', encoding='utf-8') as f:
-        json.dump(state, f)
-
-def load_progress(progress_file):
-    if os.path.exists(progress_file):
-        with open(progress_file, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    return None
-
-# ---------- Main App ----------
-QUESTION_DIR = "./question_sets"
-PROGRESS_FILE = "progress.json"
-
-st.title("📘 EAT Practice CBT")
-
-# Sidebar: choose question set
-question_files = [f for f in os.listdir(QUESTION_DIR) if f.endswith(".json")]
-selected_file = st.sidebar.selectbox("Select Question Set", question_files)
-
-# Load selected question set
-questions = load_questions(os.path.join(QUESTION_DIR, selected_file))
-
-# Session state initialization
-if "start_time" not in st.session_state:
-    st.session_state.start_time = None
-if "current_qnum" not in st.session_state:
-    st.session_state.current_qnum = 0
-if "responses" not in st.session_state:
-    st.session_state.responses = {}
-if "time_limit" not in st.session_state:
-    st.session_state.time_limit = 60 * 60  # 60 minutes
-if "time_up" not in st.session_state:
-    st.session_state.time_up = False
-if "submitted" not in st.session_state:
-    st.session_state.submitted = False
-
-# Resume last session button
-progress = load_progress(PROGRESS_FILE)
-if progress and st.button("Resume Last Session"):
-    st.session_state.current_qnum = progress.get("current_qnum", 0)
-    st.session_state.responses = progress.get("responses", {})
-    st.session_state.start_time = time.time() - progress.get("elapsed", 0)
-
-# ---------- Stage 1: Before test started ----------
-if st.session_state.start_time is None and not st.session_state.submitted:
-    if st.button("Start Test"):
+# --------------------
+# Timer management
+# --------------------
+def start_timer():
+    if "start_time" not in st.session_state:
         st.session_state.start_time = time.time()
 
-# ---------- Stage 2: Ongoing test ----------
-elif not st.session_state.submitted and not st.session_state.time_up:
-    elapsed = int(time.time() - st.session_state.start_time)
-    remaining = st.session_state.time_limit - elapsed
-    if remaining <= 0:
-        st.session_state.time_up = True
-        st.warning(f"⏰ Time is up! You were on Question {st.session_state.current_qnum + 1}.")
-    else:
-        mins, secs = divmod(remaining, 60)
-        st.sidebar.write(f"Time Left: {mins:02d}:{secs:02d}")
+def get_remaining_time(total_minutes=60):
+    elapsed = time.time() - st.session_state.start_time
+    remaining = total_minutes * 60 - elapsed
+    return max(0, int(remaining))
 
-    qnum = st.session_state.current_qnum
-    if 0 <= qnum < len(questions):
-        q = questions[qnum]
+# --------------------
+# Initialize
+# --------------------
+st.title("📘 IIM EAT / EMAT Practice CBT")
 
-        st.subheader(f"Question {qnum+1}: ({q['section']})")
-        st.write(q.get("prompt", q.get("question", "")))
+# Sidebar to select question set
+question_files = list_question_files()
+selected_file = st.sidebar.selectbox("📂 Select Question Set JSON", question_files)
 
-        options = q["options"]
-        saved_response = st.session_state.responses.get(qnum)
+if selected_file:
+    questions = load_questions(selected_file)
 
-        try:
-            default_index = options.index(saved_response) if saved_response else 0
-        except ValueError:
-            default_index = 0
+    # Shuffle only once at start
+    if "questions" not in st.session_state:
+        st.session_state.questions = random.sample(questions, len(questions))
+        st.session_state.responses = {}
+        st.session_state.current_q = 0
+        st.session_state.start_time = time.time()
+        st.session_state.timeout_q = None
 
-        selected = st.radio("Select an option", options, index=default_index, key=f"q_{qnum}")
-        st.session_state.responses[qnum] = selected
+    remaining_time = get_remaining_time()
 
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            if st.button("Previous", disabled=qnum == 0):
-                st.session_state.current_qnum -= 1
-        with col2:
-            if st.button("Save & Next", disabled=qnum == len(questions)-1):
-                st.session_state.current_qnum += 1
-        with col3:
-            if st.button("Submit Test"):
-                st.session_state.submitted = True
-                st.success("✅ Test Submitted!")
+    # Timer display
+    st.sidebar.markdown(f"⏳ **Time Left:** {remaining_time // 60}m {remaining_time % 60}s")
 
-        # Save progress continuously
-        progress_state = {
-            "current_qnum": st.session_state.current_qnum,
-            "responses": st.session_state.responses,
-            "elapsed": elapsed
-        }
-        save_progress(PROGRESS_FILE, progress_state)
+    if remaining_time <= 0 and st.session_state.timeout_q is None:
+        st.session_state.timeout_q = st.session_state.current_q + 1  # human-readable index
 
-# ---------- Stage 3: Submitted or Time up ----------
-if st.session_state.submitted or st.session_state.time_up:
-    st.header("📊 Test Summary")
-    st.write("Your Responses:", st.session_state.responses)
+    # --------------------
+    # Question Display
+    # --------------------
+    q = st.session_state.questions[st.session_state.current_q]
+    st.markdown(f"### Q{st.session_state.current_q + 1}. ({q['section']}) {q['question']}")
+
+    # Passage display if available
+    if "passage" in q and q["passage"]:
+        with st.expander("📖 Passage"):
+            st.write(q["passage"])
+
+    # Options
+    user_answer = st.radio(
+        "Select your answer:",
+        q["options"],
+        index=st.session_state.responses.get(st.session_state.current_q, None)
+        if st.session_state.current_q in st.session_state.responses
+        else None,
+        key=f"q_{st.session_state.current_q}"
+    )
+
+    if user_answer:
+        st.session_state.responses[st.session_state.current_q] = q["options"].index(user_answer)
+
+    # Navigation
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        if st.button("⬅️ Previous", disabled=st.session_state.current_q == 0):
+            st.session_state.current_q -= 1
+    with col2:
+        if st.button("➡️ Next", disabled=st.session_state.current_q == len(st.session_state.questions) - 1):
+            st.session_state.current_q += 1
+    with col3:
+        if st.button("✅ Submit"):
+            score = 0
+            for i, q in enumerate(st.session_state.questions):
+                if i in st.session_state.responses and q["options"][st.session_state.responses[i]] == q["answer"]:
+                    score += 1
+            st.success(f"Your Score: {score}/{len(st.session_state.questions)}")
+
+            if st.session_state.timeout_q:
+                st.warning(f"⏰ Time ran out while on Question {st.session_state.timeout_q}")
+
+            # Show answers
+            with st.expander("📊 Review Answers"):
+                for i, q in enumerate(st.session_state.questions):
+                    user_ans = q["options"][st.session_state.responses[i]] if i in st.session_state.responses else "Not Answered"
+                    st.write(f"Q{i+1}: {q['question']}")
+                    st.write(f"Your Answer: {user_ans}")
+                    st.write(f"Correct Answer: {q['answer']}")
+                    st.write("---")
+
