@@ -8,7 +8,6 @@ QUESTION_FILES = {
     "Set 1": "questions.json",
     "Set 2": "questions_set2.json",
     "Set 3": "questions_set3.json",
-    "Set 4": "questions_set4.json",
     "Set 5": "questions_set5.json",
     "Set 6": "questions_set6.json"
 }
