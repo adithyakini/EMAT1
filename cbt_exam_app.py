@@ -1,19 +1,27 @@
 import streamlit as st
-import json, os, time, io
+import json, os, time
 
-# ---------- Load Questions ----------
 HERE = os.path.dirname(__file__)
-with open(os.path.join(HERE, "questions.json"), "r", encoding="utf-8") as f:
+
+# 🔑 Add your question sets here
+QUESTION_FILES = {
+    "Set 1": "questions.json",
+    "Set 2": "questions_set2.json",
+    "Set 3": "questions_set3.json"
+}
+
+# --- Sidebar select which set ---
+st.sidebar.title("IIM Indore Mock CBT")
+selected_set = st.sidebar.selectbox("Choose Question Set", list(QUESTION_FILES.keys()))
+
+# Load questions
+with open(os.path.join(HERE, QUESTION_FILES[selected_set]), "r", encoding="utf-8") as f:
     QUESTIONS = json.load(f)
 
 TOTAL_TIME_MIN = 60
-
-# ---------- Streamlit Page Setup ----------
 st.set_page_config(page_title="IIM Indore Mock CBT", layout="wide")
 
-# ---------- Sidebar Controls ----------
 def sidebar_controls():
-    st.sidebar.title("IIM Indore Mock CBT")
     sections = sorted(list(set(q['section'] for q in QUESTIONS)))
     choice = st.sidebar.selectbox("Jump to section", ["All"] + sections)
     timer_on = st.sidebar.checkbox("Enable 60-min timer", value=True)
@@ -29,17 +37,17 @@ def format_question(q):
     prompt = f"Q{q['qnum']}. ({q['section']}) {q['question']}"
     return prompt
 
-# ---------- Main App ----------
 section_choice, timer_on, show_answers_after = sidebar_controls()
 questions = get_questions(section_choice)
 
-st.title("IIM Indore — 60-question Mock CBT")
+st.title(f"IIM Indore — 60-question Mock CBT ({selected_set})")
 st.write("Format: 60 questions (20 Quant, 20 Analytical, 20 Verbal). 60 minutes recommended. Navigate with Previous/Next. Submit when done.")
 
-# Timer
+# --- Timer ---
 if timer_on:
-    if 'end_time' not in st.session_state:
+    if 'end_time' not in st.session_state or st.session_state.get('set_name') != selected_set:
         st.session_state['end_time'] = time.time() + TOTAL_TIME_MIN*60
+        st.session_state['set_name'] = selected_set
     remaining = int(st.session_state['end_time'] - time.time())
     if remaining < 0:
         st.error("Time is up! Please submit your test.")
@@ -48,15 +56,13 @@ if timer_on:
         secs = remaining % 60
         st.sidebar.markdown(f"**Time remaining:** {mins:02d}:{secs:02d}")
 
-# Initialize session state
-if 'index' not in st.session_state:
+# --- Navigation states ---
+if 'index' not in st.session_state or st.session_state.get('set_name') != selected_set:
     st.session_state.index = 0
-if 'answers' not in st.session_state:
     st.session_state.answers = {str(q['qnum']): None for q in QUESTIONS}
-if 'submitted' not in st.session_state:
     st.session_state.submitted = False
+    st.session_state['set_name'] = selected_set
 
-# Navigation buttons
 cols = st.columns([1,6,1])
 with cols[0]:
     if st.button("Previous"):
@@ -65,28 +71,19 @@ with cols[2]:
     if st.button("Next"):
         st.session_state.index = min(len(questions)-1, st.session_state.index + 1)
 
-# Current question
 current_q = questions[st.session_state.index]
-
-# Show passage if provided
-if "passage" in current_q and current_q["passage"]:
-    st.markdown("#### Passage")
-    st.info(current_q["passage"])
-
 st.markdown(f"### {format_question(current_q)}")
 
 options = current_q['options']
-key = f"q_{current_q['qnum']}"
-saved_ans = st.session_state['answers'].get(str(current_q['qnum']))
-default_index = options.index(options[saved_ans]) if saved_ans is not None else 0
+key = f"q_{current_q['qnum']}_{selected_set}"
+default_index = 0 if st.session_state['answers'].get(str(current_q['qnum'])) is None else st.session_state['answers'][str(current_q['qnum'])]
 choice = st.radio("Select an option", options, index=default_index, key=key)
 selected_index = options.index(choice)
 st.session_state['answers'][str(current_q['qnum'])] = selected_index
 
-# Progress bar
 st.progress((st.session_state.index+1)/len(questions))
 
-# Question palette
+# --- Question palette ---
 if st.checkbox("Show question palette"):
     cols = st.columns(10)
     for i, q in enumerate(questions):
@@ -94,11 +91,10 @@ if st.checkbox("Show question palette"):
         if btn:
             st.session_state.index = i
 
-# Submit button
+# --- Submit ---
 if st.button("Complete and Submit Test"):
     st.session_state.submitted = True
 
-# Results
 if st.session_state.submitted:
     total = 0
     attempted = 0
@@ -114,7 +110,6 @@ if st.session_state.submitted:
                 wrong += 1
         explanations.append((q, ans, q['answer']))
     st.success(f"Score: {total} / {len(QUESTIONS)} | Attempted: {attempted} | Wrong: {wrong}")
-
     if show_answers_after:
         st.markdown("---")
         st.markdown("## Answer key & Explanations")
@@ -126,8 +121,9 @@ if st.session_state.submitted:
             st.write(f"**Explanation:** {q.get('explanation','-')}")
             st.markdown("---")
 
-# Download responses
+# --- Download responses ---
 if st.button('Download Responses (JSON)'):
+    import io, json
     buf = io.StringIO()
     json.dump(st.session_state['answers'], buf)
-    st.download_button('Click to download responses JSON', buf.getvalue(), file_name='responses.json')
+    st.download_button('Click to download responses JSON', buf.getvalue(), file_name=f'responses_{selected_set}.json')
