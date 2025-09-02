@@ -23,7 +23,7 @@ def load_progress(progress_file):
 st.set_page_config(page_title="EAT Mock Test", layout="wide")
 
 # File paths
-questions_file = "eat_questions.json"
+questions_file = "Questions Set2.json"
 progress_file = "progress.json"
 
 # Load questions
