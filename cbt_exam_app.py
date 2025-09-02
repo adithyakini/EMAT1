@@ -5,16 +5,16 @@ import time
 
 # ---------- Utility Functions ----------
 def load_questions(file_path):
-    with open(file_path, 'r') as f:
+    with open(file_path, 'r', encoding='utf-8') as f:
         return json.load(f)
 
 def save_progress(progress_file, state):
-    with open(progress_file, 'w') as f:
+    with open(progress_file, 'w', encoding='utf-8') as f:
         json.dump(state, f)
 
 def load_progress(progress_file):
     if os.path.exists(progress_file):
-        with open(progress_file, 'r') as f:
+        with open(progress_file, 'r', encoding='utf-8') as f:
             return json.load(f)
     return None
 
@@ -67,40 +67,44 @@ else:
     # Show current question
     if not st.session_state.time_up:
         qnum = st.session_state.current_qnum
-        q = questions[qnum]
+        if 0 <= qnum < len(questions):
+            q = questions[qnum]
 
-        st.subheader(f"Question {qnum+1}: ({q['section']})")
-        st.write(q["question"])
+            st.subheader(f"Question {qnum+1}: ({q['section']})")
+            # Use correct field from JSON (prompt or question)
+            st.write(q.get("prompt", q.get("question", "")))
 
-        options = q["options"]
-        saved_response = st.session_state.responses.get(qnum)
+            options = q["options"]
+            saved_response = st.session_state.responses.get(qnum)
 
-        # Safe index handling to avoid crash
-        try:
-            default_index = options.index(saved_response) if saved_response else 0
-        except ValueError:
-            default_index = 0
+            # Safe index handling to avoid crash
+            try:
+                default_index = options.index(saved_response) if saved_response else 0
+            except ValueError:
+                default_index = 0
 
-        selected = st.radio("Select an option", options, index=default_index, key=f"q_{qnum}")
-        st.session_state.responses[qnum] = selected
+            selected = st.radio("Select an option", options, index=default_index, key=f"q_{qnum}")
+            st.session_state.responses[qnum] = selected
 
-        # Navigation buttons
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            if st.button("Previous", disabled=qnum == 0):
-                st.session_state.current_qnum -= 1
-        with col2:
-            if st.button("Save & Next", disabled=qnum == len(questions)-1):
-                st.session_state.current_qnum += 1
-        with col3:
-            if st.button("Submit Test"):
-                st.success("✅ Test Submitted!")
-                st.write("Your Responses:", st.session_state.responses)
+            # Navigation buttons
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                if st.button("Previous", disabled=qnum == 0):
+                    st.session_state.current_qnum -= 1
+            with col2:
+                if st.button("Save & Next", disabled=qnum == len(questions)-1):
+                    st.session_state.current_qnum += 1
+            with col3:
+                if st.button("Submit Test"):
+                    st.success("✅ Test Submitted!")
+                    st.write("Your Responses:", st.session_state.responses)
 
-        # Save progress continuously
-        progress_state = {
-            "current_qnum": st.session_state.current_qnum,
-            "responses": st.session_state.responses,
-            "elapsed": elapsed
-        }
-        save_progress(PROGRESS_FILE, progress_state)
+            # Save progress continuously
+            progress_state = {
+                "current_qnum": st.session_state.current_qnum,
+                "responses": st.session_state.responses,
+                "elapsed": elapsed
+            }
+            save_progress(PROGRESS_FILE, progress_state)
+        else:
+            st.error("Invalid question number.")
