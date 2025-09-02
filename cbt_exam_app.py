@@ -52,64 +52,61 @@ if progress and st.button("Resume Last Session"):
     st.session_state.responses = progress.get("responses", {})
     st.session_state.start_time = time.time() - progress.get("elapsed", 0)
 
-# Start button
+# ---------- Stage 1: Before test started ----------
 if st.session_state.start_time is None and not st.session_state.submitted:
     if st.button("Start Test"):
         st.session_state.start_time = time.time()
-else:
-    if not st.session_state.submitted:
-        elapsed = int(time.time() - st.session_state.start_time)
-        remaining = st.session_state.time_limit - elapsed
-        if remaining <= 0:
-            st.session_state.time_up = True
-            st.warning(f"⏰ Time is up! You were on Question {st.session_state.current_qnum + 1}.")
-        else:
-            mins, secs = divmod(remaining, 60)
-            st.sidebar.write(f"Time Left: {mins:02d}:{secs:02d}")
 
-    # Show current question if test ongoing
-    if not st.session_state.time_up and not st.session_state.submitted:
-        qnum = st.session_state.current_qnum
-        if 0 <= qnum < len(questions):
-            q = questions[qnum]
+# ---------- Stage 2: Ongoing test ----------
+elif not st.session_state.submitted and not st.session_state.time_up:
+    elapsed = int(time.time() - st.session_state.start_time)
+    remaining = st.session_state.time_limit - elapsed
+    if remaining <= 0:
+        st.session_state.time_up = True
+        st.warning(f"⏰ Time is up! You were on Question {st.session_state.current_qnum + 1}.")
+    else:
+        mins, secs = divmod(remaining, 60)
+        st.sidebar.write(f"Time Left: {mins:02d}:{secs:02d}")
 
-            st.subheader(f"Question {qnum+1}: ({q['section']})")
-            st.write(q.get("prompt", q.get("question", "")))
+    qnum = st.session_state.current_qnum
+    if 0 <= qnum < len(questions):
+        q = questions[qnum]
 
-            options = q["options"]
-            saved_response = st.session_state.responses.get(qnum)
+        st.subheader(f"Question {qnum+1}: ({q['section']})")
+        st.write(q.get("prompt", q.get("question", "")))
 
-            try:
-                default_index = options.index(saved_response) if saved_response else 0
-            except ValueError:
-                default_index = 0
+        options = q["options"]
+        saved_response = st.session_state.responses.get(qnum)
 
-            selected = st.radio("Select an option", options, index=default_index, key=f"q_{qnum}")
-            st.session_state.responses[qnum] = selected
+        try:
+            default_index = options.index(saved_response) if saved_response else 0
+        except ValueError:
+            default_index = 0
 
-            col1, col2, col3 = st.columns(3)
-            with col1:
-                if st.button("Previous", disabled=qnum == 0):
-                    st.session_state.current_qnum -= 1
-            with col2:
-                if st.button("Save & Next", disabled=qnum == len(questions)-1):
-                    st.session_state.current_qnum += 1
-            with col3:
-                if st.button("Submit Test"):
-                    st.session_state.submitted = True
-                    st.success("✅ Test Submitted!")
+        selected = st.radio("Select an option", options, index=default_index, key=f"q_{qnum}")
+        st.session_state.responses[qnum] = selected
 
-            # Save progress continuously
-            progress_state = {
-                "current_qnum": st.session_state.current_qnum,
-                "responses": st.session_state.responses,
-                "elapsed": elapsed
-            }
-            save_progress(PROGRESS_FILE, progress_state)
-        else:
-            st.error("Invalid question number.")
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            if st.button("Previous", disabled=qnum == 0):
+                st.session_state.current_qnum -= 1
+        with col2:
+            if st.button("Save & Next", disabled=qnum == len(questions)-1):
+                st.session_state.current_qnum += 1
+        with col3:
+            if st.button("Submit Test"):
+                st.session_state.submitted = True
+                st.success("✅ Test Submitted!")
 
-# If submitted, show summary instead of questions
-if st.session_state.submitted:
+        # Save progress continuously
+        progress_state = {
+            "current_qnum": st.session_state.current_qnum,
+            "responses": st.session_state.responses,
+            "elapsed": elapsed
+        }
+        save_progress(PROGRESS_FILE, progress_state)
+
+# ---------- Stage 3: Submitted or Time up ----------
+if st.session_state.submitted or st.session_state.time_up:
     st.header("📊 Test Summary")
     st.write("Your Responses:", st.session_state.responses)
