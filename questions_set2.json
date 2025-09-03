@@ -520,11 +520,14 @@
     "explanation": "Squares: 11²,12²,13²,14² → next 15² = 225."
   },
   {
-    "qnum": 41,
-    "section": "Verbal",
-    "is_passage": true,
-    "passage": "Generative AI offers transformative opportunities across industries, but it also introduces risks that require careful governance. Effective governance should include data provenance to trace model inputs, model explainability to understand outputs, and meaningful human oversight to validate high-stakes decisions. Without provenance, it is difficult to audit models or correct error propagation; without explainability, stakeholders cannot assess model reliability. Additionally, deployment practices such as pairing CI/CD pipelines with circuit breakers and strong observability help contain failures and allow rapid rollbacks. Policymakers and organizations should focus on accountability, transparency, and layered safeguards rather than outright bans.",
-    "explanation": "Passage provided for questions 42-50."
+  "qnum": 41,
+  "section": "Verbal",
+  "is_passage": true,
+  "question": "Reading comprehension passage (refer to the passage below):",
+  "passage": "Generative AI offers transformative opportunities across industries, but it also introduces risks that require careful governance. Effective governance should include data provenance to trace model inputs, model explainability to understand outputs, and meaningful human oversight to validate high-stakes decisions. Without provenance, it is difficult to audit models or correct error propagation; without explainability, stakeholders cannot assess model reliability. Additionally, deployment practices such as pairing CI/CD pipelines with circuit breakers and strong observability help contain failures and allow rapid rollbacks. Policymakers and organizations should focus on accountability, transparency, and layered safeguards rather than outright bans.",
+  "options": [],
+  "answer": null,
+  "explanation": "Passage provided for questions 42-50."
   },
   {
     "qnum": 42,
