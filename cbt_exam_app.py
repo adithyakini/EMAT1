@@ -74,12 +74,20 @@ with cols[2]:
 current_q = questions[st.session_state.index]
 st.markdown(f"### {format_question(current_q)}")
 
-options = current_q['options']
-key = f"q_{current_q['qnum']}_{selected_set}"
-default_index = 0 if st.session_state['answers'].get(str(current_q['qnum'])) is None else st.session_state['answers'][str(current_q['qnum'])]
-choice = st.radio("Select an option", options, index=default_index, key=key)
-selected_index = options.index(choice)
-st.session_state['answers'][str(current_q['qnum'])] = selected_index
+options = current_q.get("options", [])
+
+# If passage (no options), just display it
+if current_q.get("is_passage") or not options:
+    st.markdown("#### Passage")
+    st.info(current_q.get("passage", ""))
+    st.markdown(f"*(This passage applies to the next set of questions.)*")
+else:
+    key = f"q_{current_q['qnum']}"
+    saved = st.session_state['answers'].get(str(current_q['qnum']))
+    default_index = saved if saved is not None else 0
+    choice = st.radio("Select an option", options, index=default_index, key=key)
+    selected_index = options.index(choice)
+    st.session_state['answers'][str(current_q['qnum'])] = selected_index
 
 st.progress((st.session_state.index+1)/len(questions))
 
