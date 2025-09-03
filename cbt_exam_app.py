@@ -11,7 +11,7 @@ QUESTION_FILES = {
 }
 
 # --- Sidebar select which set ---
-st.sidebar.title("IIM Indore Mock CBT")
+#st.sidebar.title("IIM Indore Mock CBT")
 selected_set = st.sidebar.selectbox("Choose Question Set", list(QUESTION_FILES.keys()))
 
 # Load questions
@@ -40,7 +40,7 @@ def format_question(q):
 section_choice, timer_on, show_answers_after = sidebar_controls()
 questions = get_questions(section_choice)
 
-st.title(f"IIM Indore — 60-question Mock CBT ({selected_set})")
+#st.title(f"IIM Indore — 60-question Mock CBT ({selected_set})")
 st.write("Format: 60 questions (20 Quant, 20 Analytical, 20 Verbal). 60 minutes recommended. Navigate with Previous/Next. Submit when done.")
 
 # --- Timer ---
